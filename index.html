@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fall 2026 | SFU/UBC Joint Statistics Seminar</title>
+  <meta name="description" content="The Fall 2026 SFU/UBC Joint Statistics Seminar, hosted in person at SFU Harbour Centre on Saturday, November 21, 2026.">
+  <meta property="og:title" content="Fall 2026 | SFU/UBC Joint Statistics Seminar">
+  <meta property="og:site_name" content="SFU/UBC Joint Statistics Seminar">
+  <meta property="og:type" content="website">
+  <style>
+    :root {
+      /* SFU brand colours (Communicators Toolkit) */
+      --sfu-light-red: #cc0633;  /* primary */
+      --sfu-dark-red: #a6192e;   /* secondary */
+      --sfu-dark-grey: #54585a;  /* supporting */
+      --red: var(--sfu-light-red);
+      --red-dark: var(--sfu-dark-red);
+      --ink: #000000;            /* body copy */
+      --muted: var(--sfu-dark-grey);
+      --line: #d9d9d9;           /* 15% black */
+      --bg: #ffffff;
+      --soft: #f2f2f2;           /* 5% black */
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+    a { color: var(--red-dark); }
+    a:hover { color: var(--red); }
+    .wrapper { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header / nav */
+    .site-header { border-top: 5px solid var(--red); border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 10; }
+    .site-header .wrapper { display: flex; align-items: center; justify-content: space-between; min-height: 58px; flex-wrap: wrap; gap: 8px; }
+    .site-title { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; }
+    .site-nav a { color: var(--ink); text-decoration: none; margin-left: 18px; font-size: .95rem; }
+    .site-nav a:hover { color: var(--red); }
+
+    /* Page title */
+    .hero { background: var(--red); color: #fff; padding: 48px 0 40px; }
+    .hero h1 { margin: 0 0 24px; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.2; font-weight: 700; }
+    .hero h1 .term { font-weight: 400; }
+    .facts { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 0; padding: 0; list-style: none; }
+    .facts strong { display: block; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; opacity: .85; font-weight: 600; }
+    .btn { display: inline-block; background: var(--red); color: #fff; padding: 10px 20px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 1rem; }
+    .btn:hover { background: var(--red-dark); color: #fff; }
+
+    /* Sections */
+    section { padding: 48px 0 8px; scroll-margin-top: 60px; }
+    h2 { font-size: 1.7rem; margin: 0 0 16px; padding-bottom: 8px; color: var(--red-dark); border-bottom: 2px solid var(--red); display: inline-block; }
+    p { margin: 0 0 14px; }
+    .note { color: var(--muted); font-size: .95rem; }
+
+    /* Schedule */
+    .schedule { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--line); }
+    .slot { display: grid; grid-template-columns: 170px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .slot .time { color: var(--red-dark); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .slot h3 { margin: 0; font-size: 1.1rem; }
+    .slot.break h3 { color: var(--muted); font-weight: 600; }
+    .talk { display: grid; grid-template-columns: 110px 1fr; gap: 18px; margin-top: 12px; }
+    .photo { width: 110px; height: 110px; border-radius: 8px; background: var(--soft); border: 1px dashed #b3b3b3; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: .8rem; text-align: center; overflow: hidden; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; }
+    .talk-title { font-weight: 700; margin: 0 0 6px; }
+    .abstract { margin: 0; text-align: justify; color: var(--muted); font-size: .95rem; }
+    .tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .05em; padding: 2px 8px; border-radius: 99px; margin-left: 8px; vertical-align: middle; }
+    .tag.sfu { background: var(--red); color: #fff; }
+    .tag.ubc { background: #e2eaf5; color: #1756a9; }
+    .tbd { color: var(--muted); font-style: italic; }
+
+    /* Sponsors */
+    .sponsors { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px 40px; }
+    .sponsors figure { margin: 0; min-width: 0; text-align: center; }
+    .sponsors .logo { height: 110px; display: flex; align-items: center; justify-content: center; }
+    .sponsors img { display: block; max-height: 110px; max-width: 100%; width: auto; height: auto; }
+    .sponsors figcaption { margin-top: 12px; font-size: .92rem; color: var(--muted); }
+
+    footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: .9rem; }
+
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      .site-nav a { margin: 0 14px 0 0; }
+      .slot { grid-template-columns: 1fr; gap: 4px; }
+      .talk { grid-template-columns: 1fr; }
+      .hero { padding: 36px 0 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="#top">SFU/UBC Joint Statistics Seminar</a>
+    <nav class="site-nav">
+      <a href="#about">About</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#register">Register</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div class="wrapper">
+    <h1>SFU/UBC Joint Statistics Seminar <span class="term">- Fall 2026</span></h1>
+    <ul class="facts">
+      <li><strong>Date</strong>Saturday, November 21, 2026</li>
+      <li><strong>Time</strong>10:00 am &ndash; 4:00 pm</li>
+      <li><strong>Location</strong>SFU Harbour Centre, Vancouver</li>
+      <li><strong>Format</strong>In person &middot; Breakfast &amp; lunch provided</li>
+    </ul>
+  </div>
+</div>
+
+<main class="wrapper">
+
+  <section id="about">
+    <h2>About</h2>
+    <p>The SFU/UBC Joint Statistics Seminar is jointly hosted by the graduate students of the <a href="https://www.sfu.ca/stat-actsci.html">SFU Department of Statistics and Actuarial Science</a> and the <a href="https://www.stat.ubc.ca/">UBC Department of Statistics</a>. The Fall 2026 event is the first of two events taking place in the 2026/2027 academic year. The Fall 2026 event is organized by the SFU Statistics and Actuarial Science Graduate Caucus, and the Spring 2027 event will be organized by graduate students from UBC. Over its 20-year history, the event has offered Statistics and Actuarial Science graduate and undergraduate students, as well as interested students from related departments, at both schools an opportunity to network with their peers and to attend accessible talks about the research work of their fellow students and faculty.</p>
+    <p>The Fall 2026 event will be held in person at <strong>SFU Harbour Centre on Saturday, November 21, 2026</strong>. This day-long event includes talks given by six students (three from SFU and three from UBC) and one faculty member from SFU. Breakfast and lunch will be provided.</p>
+  </section>
+
+  <section id="schedule">
+    <h2>Schedule</h2>
+    <p class="note">Speakers will be announced soon. Times are tentative and subject to change.</p>
+
+    <!-- EDIT: To add a speaker, replace "Speaker TBA" with their name, set the talk title and abstract,
+         and swap the photo placeholder for <img src="assets/Firstname_Lastname.jpg" alt="Firstname Lastname">. -->
+    <ol class="schedule">
+      <li class="slot break"><div class="time">10:00 – 10:30 am</div><div><h3>Breakfast</h3></div></li>
+      <li class="slot break"><div class="time">10:30 – 10:35 am</div><div><h3>Welcome Message</h3></div></li>
+
+      <li class="slot">
+        <div class="time">10:35 – 11:00 am</div>
+        <div>
+          <h3>Speaker TBA <span class="tag sfu">SFU</span></h3>
+          <div class="talk">
+            <div class="photo">Photo</div>
+            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="slot">
+        <div class="time">11:05 – 11:30 am</div>
+        <div>
+          <h3>Speaker TBA <span class="tag ubc">UBC</span></h3>
+          <div class="talk">
+            <div class="photo">Photo</div>
+            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="slot">
+        <div class="time">11:35 am – 12:00 pm</div>
+        <div>
+          <h3>Speaker TBA <span class="tag sfu">SFU</span></h3>
+          <div class="talk">
+            <div class="photo">Photo</div>
+            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="slot break"><div class="time">12:00 – 1:00 pm</div><div><h3>Lunch</h3></div></li>
+
+      <li class="slot">
+        <div class="time">1:00 – 1:25 pm</div>
+        <div>
+          <h3>Speaker TBA <span class="tag ubc">UBC</span></h3>
+          <div class="talk">
+            <div class="photo">Photo</div>
+            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="slot">
+        <div class="time">1:30 – 1:55 pm</div>
+        <div>
+          <h3>Speaker TBA <span class="tag sfu">SFU</span></h3>
+          <div class="talk">
+            <div class="photo">Photo</div>
+            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="slot">
+        <div class="time">2:00 – 2:25 pm</div>
+        <div>
+          <h3>Speaker TBA <span class="tag ubc">UBC</span></h3>
+          <div class="talk">
+            <div class="photo">Photo</div>
+            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="slot break"><div class="time">2:30 – 2:40 pm</div><div><h3>Break</h3></div></li>
+
+      <li class="slot">
+        <div class="time">2:40 – 3:40 pm</div>
+        <div>
+          <h3>Faculty Speaker TBA <span class="tag sfu">SFU Faculty</span></h3>
+          <div class="talk">
+            <div class="photo">Photo</div>
+            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="slot break"><div class="time">3:45 pm</div><div><h3>Closing &amp; Networking</h3></div></li>
+    </ol>
+  </section>
+
+  <section id="register">
+    <h2>Register</h2>
+    <p>Registration is free. Please RSVP through the Google Form by <strong>November 13, 2026</strong> so we can plan food.</p>
+    <p><a class="btn" href="https://forms.gle/u4mRtZzYhqDnte4M7" target="_blank" rel="noopener">RSVP form</a></p>
+    <p class="note">If you are interested in presenting, or have any questions, please contact <a href="mailto:aba211@sfu.ca">aba211@sfu.ca</a>.</p>
+  </section>
+
+  <section id="sponsors">
+    <h2>Sponsors</h2>
+    <div class="sponsors">
+      <figure>
+        <a class="logo" href="https://www.sfu.ca/stat-actsci.html"><img src="sfu_stat_actsci.png" alt="SFU Department of Statistics and Actuarial Science logo"></a>
+        <figcaption>SFU Department of Statistics and Actuarial Science</figcaption>
+      </figure>
+      <figure>
+        <a class="logo" href="https://sfugss.ca/"><img src="sfu_gss.png" alt="SFU Graduate Student Society logo"></a>
+        <figcaption>The Graduate Student Society at Simon Fraser University</figcaption>
+      </figure>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrapper">
+    SFU/UBC Joint Statistics Seminar - Fall 2026 · Organized by the SFU Statistics and Actuarial Science Graduate Caucus.
+  </div>
+</footer>
+
+</body>
+</html>
