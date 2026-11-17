@@ -21,7 +21,6 @@
       --line: #d9d9d9;           /* 15% black */
       --bg: #ffffff;
       --soft: #f2f2f2;           /* 5% black */
-      --radius: 10px;
       --gutter: clamp(16px, 4vw, 32px);
       --header-h: 64px;          /* 5px top border + 58px bar + 1px bottom border */
     }
@@ -70,18 +69,23 @@
     /* Schedule */
     .schedule { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--line); }
     .slot { display: grid; grid-template-columns: 170px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .slot:not(.break) { grid-template-columns: 1fr; gap: 2px; padding: 24px 0; }
+    .slot:not(.break) h3 { font-size: 1.25rem; }
     .slot .time { color: var(--red-dark); font-weight: 600; font-variant-numeric: tabular-nums; }
     .slot h3 { margin: 0; font-size: 1.1rem; }
     .slot.break h3 { color: var(--muted); font-weight: 600; }
-    .talk { display: grid; grid-template-columns: 110px 1fr; gap: 18px; margin-top: 12px; }
-    .photo { width: 110px; height: 110px; border-radius: 8px; background: var(--soft); border: 1px dashed #b3b3b3; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: .8rem; text-align: center; overflow: hidden; }
-    .photo img { width: 100%; height: 100%; object-fit: cover; }
+    .talk { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 28px; margin-top: 16px; align-items: start; }
+    .photo { width: 100%; aspect-ratio: 3 / 4; border-radius: 8px; background: var(--soft); border: 1px dashed #b3b3b3; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: .8rem; text-align: center; overflow: hidden; }
+    .photo:has(img) { aspect-ratio: auto; border: 0; background: none; }
+    .photo img { display: block; width: 100%; height: auto; }
+    .talk.no-photo { grid-template-columns: 1fr; }
     .talk-title { font-weight: 700; margin: 0 0 6px; }
+    .role { margin: 2px 0 0; color: var(--muted); font-size: .92rem; }
     .abstract { margin: 0; text-align: justify; color: var(--muted); font-size: .95rem; }
+    .abstract + .abstract { margin-top: 10px; }
     .tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .05em; padding: 2px 8px; border-radius: 99px; margin-left: 8px; vertical-align: middle; }
     .tag.sfu { background: var(--red); color: #fff; }
     .tag.ubc { background: #e2eaf5; color: #1756a9; }
-    .tbd { color: var(--muted); font-style: italic; }
 
     /* Sponsors */
     .sponsors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 32px 40px; }
@@ -95,6 +99,7 @@
     /* Tablet */
     @media (max-width: 860px) {
       .slot { grid-template-columns: 140px 1fr; }
+      .talk { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
     }
 
     /* Mobile */
@@ -108,16 +113,10 @@
       .site-nav a { display: block; margin: 0; padding: 14px var(--gutter); font-size: 1rem; border-top: 1px solid var(--line); }
       .site-nav a:hover { background: var(--soft); }
       .slot { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
-      .talk { grid-template-columns: 88px 1fr; gap: 14px; }
-      .photo { width: 88px; height: 88px; }
       .abstract { text-align: left; }
+      .talk { grid-template-columns: 1fr; gap: 14px; }
+      .photo { max-width: 360px; }
       .btn { display: block; text-align: center; padding: 14px 20px; }
-    }
-
-    /* Small phones */
-    @media (max-width: 420px) {
-      .talk { grid-template-columns: 1fr; }
-      .photo { width: 96px; height: 96px; }
     }
 
     .site-nav.no-anim { transition: none !important; }
@@ -196,10 +195,11 @@
 
   <section id="schedule">
     <h2>Schedule</h2>
-    <p class="note">Speakers will be announced soon. Times are tentative and subject to change.</p>
+    <p class="note">Times are tentative and subject to change.</p>
 
-    <!-- EDIT: To add a speaker, replace "Speaker TBA" with their name, set the talk title and abstract,
-         and swap the photo placeholder for <img src="assets/Firstname_Lastname.jpg" alt="Firstname Lastname">. -->
+    <!-- EDIT: Speaker photos live in assets/ as Firstname_Lastname.png and are added inside
+         <div class="photo"><img src="assets/Firstname_Lastname.png" alt="Firstname Lastname"></div>.
+         For a speaker without a photo, omit the photo div and use <div class="talk no-photo">. -->
     <ol class="schedule">
       <li class="slot break"><div class="time">10:00 – 10:25 am</div><div><h3>Breakfast</h3></div></li>
       <li class="slot break"><div class="time">10:25 – 10:30 am</div><div><h3>Welcome Message</h3></div></li>
@@ -207,10 +207,13 @@
       <li class="slot">
         <div class="time">10:30 – 10:55 am</div>
         <div>
-          <h3>Speaker TBA <span class="tag sfu">SFU</span></h3>
+          <h3>Hashan Peiris <span class="tag sfu">SFU</span></h3>
           <div class="talk">
-            <div class="photo">Photo</div>
-            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+            <div class="photo"><img src="assets/Hashan_Peiris.png" alt="Hashan Peiris"></div>
+            <div>
+              <p class="talk-title">Injury risk management in the National Basketball Association: an actuarial approach</p>
+              <p class="abstract">Major professional sports leagues have become large-scale financial institutions, increasing the financial risk associated with athlete injuries and the need for injury risk management. Injuries in the national basketball association are analyzed from the perspective of insurable risks using a three-part actuarial compound model for injury frequency and a two-part severity structure capturing missed games per injury and financial loss per missed game. The model is fit on a novel dataset from the 2022-23 NBA regular season combining injury reports, tracking and box score metrics, salary and demographic information, travel, television market variables, attendance, and estimated single-game values. Higher expected losses are predicted for players with higher salaries, average minutes played above 32 per game, and larger markets. The top ten players account for about $453m in at-risk injury losses per season, exceeding 25% of total estimated at-risk losses. Risk mitigation implications follow from the actuarial structure. A uniform 10% reduction in average minutes is estimated to reduce expected compound loss for the highest-risk players by 30&ndash;35% (about $9&ndash;25m per player). Leaguewide, shortening NBA games from 48 to 40 minutes is estimated to reduce total expected claims by about $493m.</p>
+            </div>
           </div>
         </div>
       </li>
@@ -218,10 +221,14 @@
       <li class="slot">
         <div class="time">11:00 – 11:25 am</div>
         <div>
-          <h3>Speaker TBA <span class="tag ubc">UBC</span></h3>
+          <h3>Hasmik Margaryan <span class="tag ubc">UBC</span></h3>
           <div class="talk">
-            <div class="photo">Photo</div>
-            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+            <div class="photo"><img src="assets/Hasmik_Margaryan.png" alt="Hasmik Margaryan"></div>
+            <div>
+              <p class="talk-title">Conditional quantile estimation via conditional extreme value model</p>
+              <p class="abstract">Extreme value theory (EVT) provides a well-established framework for modeling and extrapolating rare events; however, extending it to the multivariate setting is more challenging under asymptotic independence between variables. The Heffernan&ndash;Tawn (HT) conditional extremes model handles this by modeling one variable given that another is extreme, but it fits its key parameters once, globally, across all covariate values. This limits the estimation accuracy wherever the dependence structure shifts or data are sparse.</p>
+              <p class="abstract">The project proposes a locally adaptive estimator for the HT model based on random-forest-derived adaptive neighbourhoods and weighted quantile regression. In simulations across five dependence structures, this localized estimator consistently reduces RMSE relative to the standard approach, with the biggest improvements showing up under weak asymptotic dependence and at the most extreme quantile levels.</p>
+            </div>
           </div>
         </div>
       </li>
@@ -229,10 +236,13 @@
       <li class="slot">
         <div class="time">11:30 – 11:55 am</div>
         <div>
-          <h3>Speaker TBA <span class="tag sfu">SFU</span></h3>
+          <h3>Ananga Bajgai <span class="tag sfu">SFU</span></h3>
           <div class="talk">
-            <div class="photo">Photo</div>
-            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+            <div class="photo"><img src="assets/Ananga_Bajgai.png" alt="Ananga Bajgai" style="aspect-ratio: 1; object-fit: cover; object-position: 66% 50%;"></div>
+            <div>
+              <p class="talk-title">Disease as a conservation threat is non-randomly distributed among animal taxa: An examination with a large language model</p>
+              <p class="abstract">Infectious diseases are a known cause of population extirpation and species extinction. We perform a broad survey of the IUCN Red List to identify taxa within Animalia with a disproportionate percentage of species threatened by disease. A key challenge in this analysis is the identification of species threatened by infectious diseases which relies on textual data from the Red List. Given recent advances in large language model (LLM) text processing, we quantify the ability of OpenAI's GPT LLM to classify conservation threats and compare its performance to a standard keyword search. We find that the GPT LLM has little performance advantage over standard methods. Regardless of the classification test used, we find that disease as a conservation threat is non-randomly distributed among Animalia classes with amphibians being disproportionately threatened. Disease is also non-randomly distributed among mammalian orders, confirming previous findings that this threat is most common among Carnivora and Cetartiodactyla. In contrast, the threat of infectious disease is more randomly distributed among avian orders. Finally, we find that species with domesticated relatives are disproportionately threatened among ray-finned fishes (Actinopterygii), and in other classes in a supplementary analysis, supporting that disease spillover from closely related domesticated species is an important conservation concern. These findings confirm and complement results from previous surveys and provide a useful example for the rigorous assessment of LLMs for data processing in conservation biology.</p>
+            </div>
           </div>
         </div>
       </li>
@@ -242,10 +252,13 @@
       <li class="slot">
         <div class="time">1:00 – 1:25 pm</div>
         <div>
-          <h3>Speaker TBA <span class="tag ubc">UBC</span></h3>
+          <h3>Kelly-Ann Lessard <span class="tag ubc">UBC</span></h3>
           <div class="talk">
-            <div class="photo">Photo</div>
-            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+            <div class="photo"><img src="assets/Kelly-Ann_Lessard.png" alt="Kelly-Ann Lessard"></div>
+            <div>
+              <p class="talk-title">The Effect of Prior-Data Conflict in Pediatric Bayesian Randomized Controlled Trials Using Adult Borrowing: A Simulation Study</p>
+              <p class="abstract">Bayesian methodology allows researchers to incorporate relevant external information into randomized controlled trials (RCTs), reducing the required sample size. This is particularly advantageous in pediatrics, where underpowered trials due to insufficient sample size are frequent, partly because of recruitment difficulty. When pediatric information is unavailable, adult information can be used instead if it is believed that the treatment studied has a similar effect in both populations. Adult borrowing in Bayesian RCTs is a validated statistical method and is used in practice. However, concerns remain about the validity of conclusions if prior-data conflict were to occur. We conducted a simulation study to assess how different degrees of prior-data conflict affect the operating characteristics of pediatric Bayesian RCTs using adult borrowing across a range of sample sizes. It also examines different levels and methods of discounting to mitigate the effect of prior-data conflict. To assess the properties in a simple, intuitive context, 10,000 pediatric trials were simulated using a beta-binomial model. Pediatric data were simulated with different degrees of concordance with the adult prior and different sample sizes. Independent Beta priors were used in the control and treatment arms to represent adult information with a moderate true treatment effect, and different discounting methods were applied: no discounting, power priors (with various levels of discounting), and robust mixture priors. To show that the results extrapolate to more complex models, the Keta4SI ketamine trial will be used as a case study. Multiple operating characteristics were assessed. Preliminary findings reinforce the importance of discounting to reduce the occurrence of inadequate conclusions.</p>
+            </div>
           </div>
         </div>
       </li>
@@ -253,10 +266,13 @@
       <li class="slot">
         <div class="time">1:30 – 1:55 pm</div>
         <div>
-          <h3>Speaker TBA <span class="tag sfu">SFU</span></h3>
+          <h3>Yueyang Han <span class="tag sfu">SFU</span></h3>
           <div class="talk">
-            <div class="photo">Photo</div>
-            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+            <div class="photo"><img src="assets/Yueyang_Han.png" alt="Yueyang Han"></div>
+            <div>
+              <p class="talk-title">Drug-Combination Trials with Multi-Graded Outcomes</p>
+              <p class="abstract">We propose a model-assisted phase I/II clinical trial design to identify the optimal biological dose (OBD) for drug combinations, where both toxicity and efficacy endpoints are multi-categorical and multi-graded. The design is well-suited for trials with non-monotonic dose-response relationships, such as those involving immunotherapeutic agents. In these settings, toxicity and efficacy are more accurately represented by graded categories. We find the optimal biological dose as the dose combination with the largest expected utility among all the dose combinations that satisfy the safety constraint. Simulation studies demonstrate that our design exhibits superior operating characteristics compared to existing dose-finding methods for drug combinations.</p>
+            </div>
           </div>
         </div>
       </li>
@@ -264,10 +280,13 @@
       <li class="slot">
         <div class="time">2:00 – 2:25 pm</div>
         <div>
-          <h3>Speaker TBA <span class="tag ubc">UBC</span></h3>
+          <h3>Arqam Rizwan <span class="tag ubc">UBC</span></h3>
           <div class="talk">
-            <div class="photo">Photo</div>
-            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+            <div class="photo"><img src="assets/Arqam_Rizwan.png" alt="Arqam Rizwan"></div>
+            <div>
+              <p class="talk-title">Convergence and efficiency of annealed importance sampling with imperfect transitions</p>
+              <p class="abstract">Annealed importance sampling is a popular method for estimating normalising constants. However, its behaviour in realistic settings is poorly understood as most theory assumes that the transition kernels yield exact, independent samples. We conduct the first general analysis of AIS without assuming perfect transitions. The main results include a central limit theorem for the log-normalising constant estimator, as well as non-asymptotic bounds on the bias and variance. We capture the dependence of the asymptotic error, termed annealing complexity, on the problem and configuration and show that it scales polynomially with dimension. Finally, we discuss guidelines to minimise annealing complexity, including the optimal kernel-aware annealing schedule. This is joint work with Trevor Campbell and Alexandre Bouchard-C&ocirc;t&eacute;.</p>
+            </div>
           </div>
         </div>
       </li>
@@ -275,23 +294,26 @@
       <li class="slot">
         <div class="time">2:30 – 3:30 pm</div>
         <div>
-          <h3>Faculty Speaker TBA <span class="tag sfu">SFU Faculty</span></h3>
-          <div class="talk">
-            <div class="photo">Photo</div>
-            <div><p class="talk-title tbd">Talk title TBA</p><p class="abstract tbd">Abstract coming soon.</p></div>
+          <h3>Dr. Lloyd T. Elliott <span class="tag sfu">SFU Faculty</span></h3>
+          <p class="role">Associate Professor, SFU</p>
+          <div class="talk no-photo">
+            <div>
+              <p class="talk-title">Random Number Generators in Video Games</p>
+              <p class="abstract">A Turing machine cannot produce random numbers, and so video games fake randomness using pseudo-random number generators (machine learning software does the same for Monte Carlo Markov chains, stochastic gradient descent, or bagging). I will give a brief history of games, from Mancala to Mario and show how randomness (or lack thereof) can be used and exploited.</p>
+            </div>
           </div>
         </div>
       </li>
 
-      <li class="slot break"><div class="time">3:40 pm</div><div><h3>Closing &amp; Networking at Steamworks </h3></div></li>
+      <li class="slot break"><div class="time">3:40 pm onwards</div><div><h3>Closing &amp; Networking at Steamworks</h3></div></li>
     </ol>
   </section>
 
   <section id="register">
     <h2>Register</h2>
-    <p>Registration is free. Please RSVP through the Google Form by <strong>November 13, 2026</strong> so we can plan food.</p>
+    <p>Registration is free. Please RSVP through the Google Form below.</p>
     <p><a class="btn" href="https://forms.gle/u4mRtZzYhqDnte4M7" target="_blank" rel="noopener">RSVP form</a></p>
-    <p class="note">If you are interested in presenting, or have any questions, please contact <a href="mailto:aba211@sfu.ca">aba211@sfu.ca</a>.</p>
+    <p class="note">If you have any questions, please contact <a href="mailto:aba211@sfu.ca">aba211@sfu.ca</a>.</p>
   </section>
 
   <section id="sponsors">
