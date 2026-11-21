@@ -79,6 +79,8 @@
     .photo:has(img) { aspect-ratio: auto; border: 0; background: none; }
     .photo img { display: block; width: 100%; height: auto; }
     .talk.no-photo { grid-template-columns: 1fr; }
+    .photo.photo-small { max-width: 220px; }  /* low-resolution source image */
+    .talk:has(.photo-small) { grid-template-columns: 220px minmax(0, 1fr); }
     .talk-title { font-weight: 700; margin: 0 0 6px; }
     .role { margin: 2px 0 0; color: var(--muted); font-size: .92rem; }
     .abstract { margin: 0; text-align: justify; color: var(--muted); font-size: .95rem; }
@@ -116,6 +118,7 @@
       .abstract { text-align: left; }
       .talk { grid-template-columns: 1fr; gap: 14px; }
       .photo { max-width: 360px; }
+      .talk:has(.photo-small) { grid-template-columns: 1fr; }
       .btn { display: block; text-align: center; padding: 14px 20px; }
     }
 
@@ -296,7 +299,8 @@
         <div>
           <h3>Dr. Lloyd T. Elliott <span class="tag sfu">SFU Faculty</span></h3>
           <p class="role">Associate Professor, SFU</p>
-          <div class="talk no-photo">
+          <div class="talk">
+            <div class="photo photo-small"><img src="assets/Lloyd_Elliott.png" alt="Lloyd T. Elliott"></div>
             <div>
               <p class="talk-title">Random Number Generators in Video Games</p>
               <p class="abstract">A Turing machine cannot produce random numbers, and so video games fake randomness using pseudo-random number generators (machine learning software does the same for Monte Carlo Markov chains, stochastic gradient descent, or bagging). I will give a brief history of games, from Mancala to Mario and show how randomness (or lack thereof) can be used and exploited.</p>
